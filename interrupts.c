@@ -3,7 +3,6 @@
 
 extern volatile char milliSecondTicFlag;
 extern volatile int milliSecondTics;
-extern volatile unsigned int MotorDelayTimer;
 extern volatile unsigned int cumulativeMilliSecs;
 #ifdef EnableUART
 #include "uart.h"
@@ -25,7 +24,6 @@ void __interrupt() isr(void) {
         TMR2IF = 0;
         cumulativeMilliSecs++;
         milliSecondTics++;
-        if (MotorDelayTimer != 0) MotorDelayTimer--;
         milliSecondTicFlag = TRUE;
     }
     //***********************************************************************

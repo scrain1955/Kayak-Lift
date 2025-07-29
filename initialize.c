@@ -48,25 +48,25 @@ void initialize(void) {
     // (Pin 2)  PORTA.5 = input, REMOTE3
     // (Pin 3)  PORTA.4 = input, REMOTE2
     // (Pin 4)  PORTA.3 = input,  MCLR, pull up enabled
-    // (Pin 11) PORTA.2 = input, AtoD Battery Voltage, AN2
+    // (Pin 11) PORTA.2 = input, REMOTE1
     // (Pin 12) PORTA.1 = input, Manual UP, ICSP Clock, pull up enabled
     // (Pin 13) PORTA.0 = input, Manual DOWN, ICSP Data, pull up enabled
     TRISA = 0b00111111; // 1 = input, 0 = output
-    ANSELA = 0x04; // (1 = Analog, 0 = Digital)
+    ANSELA = 0x00; // (1 = Analog, 0 = Digital)
     WPUA = 0x0B; // enable pull ups on serial programming pins MCLR,ISCPD,ISCPC (1 = pullup, 0 = no pull)
 
     PORTC = 0x00;
     // (Pin x)  PORTC.7 = unused, not pinned out
     // (Pin x)  PORTC.6 = unused, not pinned out
-    // (Pin 5)  PORTC.5 = input, REMOTE1 and UART RX
-    // (Pin 6)  PORTC.4 = input for REMOTE0, Output for UART TX
+    // (Pin 5)  PORTC.5 = input, UART RX
+    // (Pin 6)  PORTC.4 = output, UART TX
     // (Pin 7)  PORTC.3 = output, Down Solenoid
     // (Pin 8)  PORTC.2 = output, UP Solenoid
-    // (Pin 9)  PORTC.1 = output, Motor Solenoid
-    // (Pin 10) PORTC.0 = output, Solar Panel on/off switch
-    TRISC = 0x20; // 1 = input, 0 = output
+    // (Pin 9)  PORTC.1 = output, REMOTE0
+    // (Pin 10) PORTC.0 = input, Up limit switch
+    TRISC = 0x21; // 1 = input, 0 = output
     ANSELC = 0x00; // 0 = Digital, 1 = Analog
-    WPUC = 0xC0; // pull ups on unused
+    WPUC = 0x01; // pull ups
 
     nWPUEN = 0x00; // enable global pull ups (0=Enable)
     OSCCON = 0xF0; // switch to 32MHz Internal clock source w/ PLL enabled by config register
@@ -85,16 +85,6 @@ void initialize(void) {
     //
     //APFCONbits.RXDTSEL = 0; // UART RX default is on RC5 pin for PIC16F1823 
     //APFCON0bits.TXCKSEL = 0; // UART TX default is on RC4 pin for PIC16F1823 
-
-    //
-    // Configure the AtoD
-    //
-    FVRCON = 0x83; // Configure voltage reference to on, temperature indicator off, Reference voltage is 4.096V
-    ADCON0 = 0x09; // Select channel AN2 (RA.2),enable AtoD, don't start yet
-    ADCON1 = 0xE3; // Right Justified result, Fosc/64 clock (0.5Mhz), voltage reference is FVR and VSS
-    // conversion will take 11.5 * 2uSec = 23 uSec
-    ADIF = 0; // Clear any lingering interrupt
-    ADIE = 0; // Disable AtoD interrupts, polling will be used
     //
     // Initialize variables from EEPROM
     //
@@ -126,12 +116,11 @@ void initialize(void) {
     //
     // Configure Interrupt on Change
     //
-    // Rf Remote bits are on Ports:
-    // PORTA.RA5 & PORTA.RA1 = UP
-    // PORTA.RA4 & PORTA.RA0 = DOWN
+    // PORTA.RA5 (Rf port D0) or PORTA.RA1 (manual switch) = UP
+    // PORTA.RA4 (Rf port D1) or PORTA.RA0 (manual switch) = DOWN
     // IOC is only on PORTA
     IOCAP = 0x30; // enable Positive IOC. Note - RA5 & RA4 are positive edge
-    IOCAN = 0x03; // enable Positive IOC. Note - RA1 & RA0 are Negative edge
+    IOCAN = 0x03; // enable Negative IOC. Note - RA1 & RA0 are Negative edge
     IOCAF = 0x00; // clear any lingering flags
 
     //
@@ -148,5 +137,4 @@ void initialize(void) {
     PEIE = 1; // enable peripheral interrupts
     IOCIE = 1; // enable the IOC interrupt
     GIE = 1; // enable master interrupt bit
-    ADCON0bits.GO = 1; // start the AtoD conversion (23 uSec conversion time)
 }
