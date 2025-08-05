@@ -98,14 +98,14 @@ void CheckForActionEvents(uint8_t buttonStatus) {
     }
     switch (MachineState) {
         case MACHINE_STATE_IDLE:
-            if (buttonStatus == BUTTON_UP_MASK && UP_LIMIT_SWITCH == ON) {
+            if (buttonStatus == BUTTON_UP_MASK && UP_LIMIT_SWITCH == OFF) {
                 MachineState = MACHINE_STATE_UP_LIMIT_REACHED;
 #ifdef EnableUART
                 WriteTXBufferConst("Max UP Limit reached", NEWLINE);
 #endif 
             }
 
-            if (buttonStatus == BUTTON_UP_MASK && UP_LIMIT_SWITCH == OFF) {
+            if (buttonStatus == BUTTON_UP_MASK && UP_LIMIT_SWITCH == ON) {
                 DOWN_SOLENOID = OFF;
                 UP_SOLENOID = ON;
                 MachineState = MACHINE_STATE_RUNNING;
@@ -126,7 +126,7 @@ void CheckForActionEvents(uint8_t buttonStatus) {
             }
             break;
         case MACHINE_STATE_RUNNING:
-            if (buttonStatus == BUTTON_UP_MASK && UP_LIMIT_SWITCH == ON) {
+            if (buttonStatus == BUTTON_UP_MASK && UP_LIMIT_SWITCH == OFF) {
                 UP_SOLENOID = OFF;
                 DOWN_SOLENOID = OFF;
                 MachineState = MACHINE_STATE_UP_LIMIT_REACHED;

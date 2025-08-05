@@ -1,7 +1,7 @@
 //************************************************************
 // Revision 1.0 7/29/2025
 // MPLabX v6.15; Compiler XC8 v2.46 Pro ; Toolpack 1.7.242
-//   PIC16F1823 Checksum 25E4 (dashboard) FF80 (ID memory) with uart on
+//   PIC16F1823 Checksum 21E4 (dashboard) FB80 (ID memory) with uart on
 // - Revision is set in init_eeprom.h
 // - First release of completed Kayak Lift
 //************************************************************

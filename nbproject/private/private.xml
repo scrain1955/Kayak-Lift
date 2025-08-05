@@ -3,8 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/scrai/OneDrive/Documents/MPLABXProjects/Kayak%20Lift.X/initialize.c</file>
             <file>file:/C:/Users/scrai/OneDrive/Documents/MPLABXProjects/Kayak%20Lift.X/defines.h</file>
+            <file>file:/C:/Users/scrai/OneDrive/Documents/MPLABXProjects/Kayak%20Lift.X/initialize.c</file>
+            <file>file:/C:/Users/scrai/OneDrive/Documents/MPLABXProjects/Kayak%20Lift.X/interrupts.c</file>
+            <file>file:/C:/Users/scrai/OneDrive/Documents/MPLABXProjects/Kayak%20Lift.X/globals.h</file>
+            <file>file:/C:/Users/scrai/OneDrive/Documents/MPLABXProjects/Kayak%20Lift.X/Main.c</file>
+            <file>file:/C:/Users/scrai/OneDrive/Documents/MPLABXProjects/Kayak%20Lift.X/Main.h</file>
+            <file>file:/C:/Users/scrai/OneDrive/Documents/MPLABXProjects/Kayak%20Lift.X/uart.c</file>
+            <file>file:/C:/Users/scrai/OneDrive/Documents/MPLABXProjects/Kayak%20Lift.X/uart.h</file>
+            <file>file:/C:/Users/scrai/OneDrive/Documents/MPLABXProjects/Kayak%20Lift.X/init_eeprom.h</file>
         </group>
     </open-files>
 </project-private>
